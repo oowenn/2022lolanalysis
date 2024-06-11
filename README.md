@@ -1,2 +1,15 @@
 # 2022lolanalysis
-This is my final project for DSC 80.
+
+a bunch of stuff
+
+## more stuff
+
+stuff
+
+## some stuff
+
+stuff
+
+### whats this
+
+lets see
