@@ -97,12 +97,12 @@ This figure depicts the distributions of the `'multikills'` of different leagues
 ></iframe>
 
 This figure depicts the distributions of the `'objectives'` captured by different leagues. We can observe that the distributions are very similar across all leagues, but the LCK and the PCS have the highest maxes of 10 while the LEC has the lowest max of 6.
-<iframe
+<!-- <iframe
   src="assets/objectives_by_league.html"
   width="800"
   height="600"
   frameborder="0"
-></iframe>
+></iframe> -->
 
 ### Interesting Aggregates
 
@@ -340,4 +340,5 @@ With a p-value of 0, we have evidence to reject the null hypothesis. The mean `'
 
 With a p-value of 0, we have evidence to reject the null hypothesis. The mean winrate of Red side is likely not to be the same as the mean winrate of Blue side. 
 
-#### Prediction Problem
+#### Framing Prediction Problem
+
