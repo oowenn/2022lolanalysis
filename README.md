@@ -257,3 +257,41 @@ We can explore the pick rates of each champion after aggregating by `'league'` t
 | Zoe          | 0.576132  | 0.385439  | 0.328947  | 0.547264  | 0.534759  | 0.701107  | 0.0330033 |
 | Zyra         | 0         | 0         | 0.0328947 | 0.0497512 | 0         | 0         | 0         |
 
+### Assessment of Missingness
+
+Assessing each column before cleaning, we believe one column that could be NMAR is the `'url'` column. The values in the `'url'` column are all lpl.qq.com or matchhistory.na.leagueoflegends.com urls, so it could be that matches recorded on other urls were not kept in the dataset. 
+
+#### Hypothesis Test 1
+To assess the missingness of `'doublekills'` on `'league'` we run the following hypothesis test:
+
+- H0: The distribution of `'league'` when `'doublekills'` is missing is the same as when `'doublekills'` is not missing.
+- H1: The distribution of `'league'` is different between when `'doublekills'` is missing and not missing.
+- Test Statistic: TVD between the categorical distributions of `'league'`.
+
+We reject the null hypothesis with a p-value of 0.0. Thus, we can conclude that `'doublekills'` is MAR on `'league'`. The empirical tvds from our permutation testing is depicted below.
+
+<iframe
+  src="assets/doublekills_on_league.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+At first this result seems very bizzare, but it can be explained by the fact that all of the observations where `'doublekills'` (among similar columns) were missing came from LPL games. 
+
+#### Hypothesis Test 2
+To assess the missingness of `'doublekills'` on `'dpm'` we run the following hypothesis test:
+
+- H0: The distribution of `'dpm'` when `'doublekills'` is missing as the same as when `'doublekills'` is not missing.
+- H1: The distribution of '`dpm'` is different between when `'doublekills'` is missing and not missing.
+- Test Statistic: Difference of means between the quantitative distributions of `'dpm'`.
+
+We fail to reject the null hypothesis with a p-value of 0.474. Thus, we cannot conclude that `'doublekills'` is MAR on `'dpm'`. The empirical difference of means from our permutation testing is depicted below. 
+
+<iframe
+  src="assets/doublekills_on_dpm.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
