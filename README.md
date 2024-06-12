@@ -98,7 +98,7 @@ This figure depicts the distributions of the `'multikills'` of different leagues
 
 This figure depicts the distributions of the `'objectives'` captured by different leagues. We can observe that the distributions are very similar across all leagues, but the LCK and the PCS have the highest maxes of 10 while the LEC has the lowest max of 6.
 <iframe
-  src="assets/multikills_by_league.html"
+  src="assets/objectives_by_league.html"
   width="800"
   height="600"
   frameborder="0"
@@ -261,11 +261,11 @@ We can explore the pick rates of each champion after aggregating by `'league'` t
 
 Assessing each column before cleaning, we believe one column that could be NMAR is the `'url'` column. The values in the `'url'` column are all lpl.qq.com or matchhistory.na.leagueoflegends.com urls, so it could be that matches recorded on other urls were not kept in the dataset. 
 
-#### Hypothesis Test 1
+#### Missingness Hypothesis Test 1
 To assess the missingness of `'doublekills'` on `'league'` we run the following hypothesis test:
 
-- H0: The distribution of `'league'` when `'doublekills'` is missing is the same as when `'doublekills'` is not missing.
-- H1: The distribution of `'league'` is different between when `'doublekills'` is missing and not missing.
+- Null: The distribution of `'league'` when `'doublekills'` is missing is the same as when `'doublekills'` is not missing.
+- Alternative: The distribution of `'league'` is different between when `'doublekills'` is missing and not missing.
 - Test Statistic: TVD between the categorical distributions of `'league'`.
 
 We reject the null hypothesis with a p-value of 0.0. Thus, we can conclude that `'doublekills'` is MAR on `'league'`. The empirical tvds from our permutation testing is depicted below.
@@ -279,11 +279,11 @@ We reject the null hypothesis with a p-value of 0.0. Thus, we can conclude that 
 
 At first this result seems very bizzare, but it can be explained by the fact that all of the observations where `'doublekills'` (among similar columns) were missing came from LPL games. 
 
-#### Hypothesis Test 2
+#### Missingness Hypothesis Test 2
 To assess the missingness of `'doublekills'` on `'dpm'` we run the following hypothesis test:
 
-- H0: The distribution of `'dpm'` when `'doublekills'` is missing as the same as when `'doublekills'` is not missing.
-- H1: The distribution of '`dpm'` is different between when `'doublekills'` is missing and not missing.
+- Null: The distribution of `'dpm'` when `'doublekills'` is missing as the same as when `'doublekills'` is not missing.
+- Alternative: The distribution of '`dpm'` is different between when `'doublekills'` is missing and not missing.
 - Test Statistic: Difference of means between the quantitative distributions of `'dpm'`.
 
 We fail to reject the null hypothesis with a p-value of 0.474. Thus, we cannot conclude that `'doublekills'` is MAR on `'dpm'`. The empirical difference of means from our permutation testing is depicted below. 
@@ -294,4 +294,12 @@ We fail to reject the null hypothesis with a p-value of 0.474. Thus, we cannot c
   height="600"
   frameborder="0"
 ></iframe>
+
+### Hypothesis Testing
+
+#### Hypothesis 1
+
+- Null: The mean kpm (kills per minute) between the LPL league and LCK league is the same.
+- Alternative: The mean kpm (kills per minute) of the LPL league is higher than the LCK league.
+- Test Statistic: Difference of Means.
 
