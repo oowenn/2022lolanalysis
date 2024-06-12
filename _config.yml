@@ -2,4 +2,4 @@ remote_theme: pages-themes/minimal@v0.2.0
 plugins:
 - jekyll-remote-theme # add this line to the plugins list if you already have one
 title: [2022 LOL Analysis]
-description: [This page contains my final project for DSC 80, an exploratory data science project on the 2022 League of Legends match datatset.]
+description: [This page contains my final project for DSC 80 where I conducted an exploratory data science project on the 2022 League of Legends match datatset.]
