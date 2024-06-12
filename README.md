@@ -279,7 +279,7 @@ We reject the null hypothesis with a p-value of 0.0. Thus, we can conclude that 
 
 At first this result seems very bizzare, but it can be explained by the fact that all of the observations where `'doublekills'` (among similar columns) were missing came from LPL games. 
 
-#### Missingness Hypothesis Test 2
+<!-- #### Missingness Hypothesis Test 2
 To assess the missingness of `'doublekills'` on `'dpm'` we run the following hypothesis test:
 
 - Null: The distribution of `'dpm'` when `'doublekills'` is missing as the same as when `'doublekills'` is not missing.
@@ -341,4 +341,4 @@ With a p-value of 0, we have evidence to reject the null hypothesis. The mean `'
 With a p-value of 0, we have evidence to reject the null hypothesis. The mean winrate of Red side is likely not to be the same as the mean winrate of Blue side. 
 
 #### Framing Prediction Problem
-
+ -->
