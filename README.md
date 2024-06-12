@@ -340,5 +340,41 @@ With a p-value of 0, we have evidence to reject the null hypothesis. The mean `'
 
 With a p-value of 0, we have evidence to reject the null hypothesis. The mean winrate of Red side is likely not to be the same as the mean winrate of Blue side. 
 
-#### Framing Prediction Problem
+#### Prediction Problem
 
+##### Question
+
+Can we predict if a team will win/lose the game?
+
+- Binary classification problem
+- We want to predict the `'result'` column
+- We will use accuracy as the metric because it is simple and we are not concerned with false positives/negatives.
+
+##### Baseline Model
+
+Using information available 15 minutes into the game, we utilize the following features to create a basic `DecisionTreeClassifier()`:
+- `'red_side'`: nominal feature, found by encoding `'side'` to `'True'` if `'side' == 'Red'` and `'False'` if `'side' == Blue'`.
+- `'golddifat15'`: quantitative feature, found by subtracting `'goldat15'` by `'opp_goldat15'`.
+- `'xpdifat15'`: quantitative feature, found by subtracting `'xpat15'` by `'opp_xpat15'`.
+- `'csdifat15'`: quantitative feature, found by subtracting `'csat15'` by `'opp_csat15'`.
+- `'killsat15'`: quantitative feature, original column.
+- `'assistsat15'`: quantitative feature, original column.
+- `'deathsat15'`: quantitative feature, original column.
+
+In total, we used 1 nominal and 6 quantitative features. This model achieved train accuracy of `0.747` and test accuracy of `0.755`. We do not believe that this model is good yet because its accuracy is fairly low and can be improved.
+
+##### Final Model
+
+Expanding to using all of the available information throughout the game, we utilize the following features to create a `RandomForestClassifier()`:
+- `'red_side'`: we chose to keep this feature because it showed to be a strong predictor in an earlier hypothesis test.
+- `'killsdif'`: we chose to include this feature because having more or less kills than your opponent should be a good indicator of the result of the game. 
+- `'objectives captured'`: we chose to include this feature because having more or less objectives captured should be a decent indicator of the result of a game.
+- `'earned gpm'`: we chose to include this feature because a team earning more or less than average gold per minute should be a good indicator of the result of a game.
+
+For this final model, we chose to use a `RandomForestClassifier()`, which is a model that trains an ensemble of `DecisionTreeClassifier()'s` and bases its prediction on a vote cast by each `DecisionTreeClassifier()`. 
+
+To fine tune the hyperparameters, we used a `GridSearchCV()` to find the combination of `max_depth`, `criterion`, and `min_samples_split` with the best validation score. We would test a range for each hyperparameter and adjust the range depending on the result until the hyperparameters converged. 
+
+Our resulting best hyperparameters were `criterion='gini'`, `max_depth=3`, and `min_samples_split=48`.
+
+Our final model achieved a train accuracy of `0.978` test accuracy of `0.96`. It performs considerably better than our baseline model because it has achieved much higher accuracy without overfitting to the training data. 
