@@ -97,12 +97,12 @@ This figure depicts the distributions of the `'multikills'` of different leagues
 ></iframe>
 
 This figure depicts the distributions of the `'objectives'` captured by different leagues. We can observe that the distributions are very similar across all leagues, but the LCK and the PCS have the highest maxes of 10 while the LEC has the lowest max of 6.
-<!-- <iframe
+<iframe
   src="assets/objectives_by_league.html"
   width="800"
   height="600"
   frameborder="0"
-></iframe> -->
+></iframe>
 
 ### Interesting Aggregates
 
