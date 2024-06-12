@@ -74,3 +74,6 @@ From this figure, which plots the distribution of multikills across all games pl
 ></iframe>
 
 From this figure, which plots the distributions of the various kinds of multikills across all games played in regional leagues, we can observe that it is indeed less common to see larger multikills. We find that there were never more than one pentakill in the games observed in 2022, but 408 games included pentakills.
+
+### Bivariate Analysis
+
