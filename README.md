@@ -297,9 +297,47 @@ We fail to reject the null hypothesis with a p-value of 0.474. Thus, we cannot c
 
 ### Hypothesis Testing
 
-#### Hypothesis 1
+#### Hypothesis Test 1
 
+##### Set Up
 - Null: The mean kpm (kills per minute) between the LPL league and LCK league is the same.
 - Alternative: The mean kpm (kills per minute) of the LPL league is higher than the LCK league.
 - Test Statistic: Difference of Means.
+- Significant Level: 5%.
 
+##### Results
+- P-value: 0.0
+
+<iframe
+  src="assets/kpm_lck_lpl.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+##### Conclusions
+
+With a p-value of 0, we have evidence to reject the null hypothesis. The mean `'kpm'` of the LPL is likely to be higher than the mean `'kpm'` of the LCK. We can use this to imply that LPL games have more action than LCK games because there are more kills per minute. 
+
+#### Hypothesis Test 2
+
+##### Set Up
+- Null: The mean result (winrate) between Red side and Blue side is the same.
+- Alternative: The mean result (winrate) between Red side and Blue side is not the same.
+- Test Statistic: Difference of Means.
+
+##### Results
+- P-value: 0.0
+
+<iframe
+  src="assets/red_vs_blue.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+##### Conclusions
+
+With a p-value of 0, we have evidence to reject the null hypothesis. The mean winrate of Red side is likely not to be the same as the mean winrate of Blue side. 
+
+#### Prediction Problem
