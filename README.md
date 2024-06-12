@@ -54,3 +54,9 @@ The head of the final dataframe is shown below
 
 ### Univariate Analysis
 
+<iframe
+  src="assets/kpmdistribution.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
