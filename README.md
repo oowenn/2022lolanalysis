@@ -54,36 +54,53 @@ The head of the final dataframe is shown below
 
 ### Univariate Analysis
 
+This figure plots the distribution of kpm across all games played in regional leagues. We can observe that the the distribution is roughly skewed right with a mean of about 0.37.
 <iframe
   src="assets/kpm_dist.html"
   width="800"
   height="600"
   frameborder="0"
 ></iframe>
-From this figure, which plots the distribution of kpm across all games played in regional leagues, we can observe that the the distribution is roughly skewed right with a mean of about 0.37.
 
+This figure plots the distribution of multikills across all games played in regional leauges. We can observe that the number of multikills seen in a game trends downward with a mean around 2.
 <iframe
   src="assets/multikills_dist.html"
   width="800"
   height="600"
   frameborder="0"
 ></iframe>
-From this figure, which plots the distribution of multikills across all games played in regional leauges, we can observe that the number of multikills seen in a game trends downward with a mean around 2.
 
+This figure plots the distributions of the various kinds of multikills across all games played in regional leagues. We can observe that it is indeed less common to see larger multikills, and that there were never more than one pentakill in the games observed in 2022 but 408 games included pentakills.
 <iframe
   src="assets/all_multikills_dist.html"
   width="800"
   height="600"
   frameborder="0"
 ></iframe>
-From this figure, which plots the distributions of the various kinds of multikills across all games played in regional leagues, we can observe that it is indeed less common to see larger multikills. We find that there were never more than one pentakill in the games observed in 2022, but 408 games included pentakills.
 
 ### Bivariate Analysis
 
-This figure depicts the distributions of the `'kpm'` of different leagues. We can see that the VCS league seems to have the highest mean `'kpm'`whereas the lowest appears to be the LCK.
+This figure depicts the distributions of the `'kpm'` of different leagues. We can see that the VCS league seems to have the highest median `'kpm'`whereas the lowest appears to be the LCK.
 <iframe
   src="assets/kpm_by_league.html"
   width="800"
   height="600"
   frameborder="0"
 ></iframe>
+
+This figure depicts the distributions of the `'multikills'` of different leagues. We can see that the CBLOL and VCS leagues have the highest median observed `'multikills'` of 2 whereas the rest of the leagues of a median observed `'multikills'` of 1.
+<iframe
+  src="assets/multikills_by_league.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+This figure depicts the distributions of the `'objectives'` captured by different leagues. We can observe that the distributions are very similar across all leagues, but the LCK and the PCS have the highest maxes of 10 while the LEC has the lowest max of 6.
+<iframe
+  src="assets/multikills_by_league.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
