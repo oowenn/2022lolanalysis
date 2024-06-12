@@ -24,7 +24,7 @@ In this project, we aim to answer the question: **Does `side` have a significant
 
 We will explore the importance these factors have on the outcome of a game with an emphasis on `side`. Additionally, we will explore the differences between matches in different leagues such as the LPL and LCK by comparing metrics that evaluate the action of a game. 
 
-## Data Cleaning and EDA
+## Data Cleaning and Exploratory Data Analysis
 
 ### Data Cleaning Steps
 
