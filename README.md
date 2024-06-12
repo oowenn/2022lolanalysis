@@ -378,3 +378,27 @@ To fine tune the hyperparameters, we used a `GridSearchCV()` to find the combina
 Our resulting best hyperparameters were `criterion='gini'`, `max_depth=3`, and `min_samples_split=48`.
 
 Our final model achieved a train accuracy of `0.978` test accuracy of `0.96`. It performs considerably better than our baseline model because it has achieved much higher accuracy without overfitting to the training data. 
+
+#### Fairness Analysis
+
+We will evaluate our final model's F1-score between two groups:
+- Group 1: Red side teams
+- Group 2: Blue side teams
+
+##### Setup
+We will conduct the following hypothesis test:
+- Null: The model is fair. Its F1-score is the same for teams playing Red side and Blue side.
+- Alternative: The model is unfair. Its F1-score is higher for teams playing on Red side over Blue side.
+
+##### Results
+- P-value: 0.558
+
+<iframe
+  src="assets/red_blue_f1.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+##### Conclusions
+With a p-value of 0.558, we fail to reject the null hypothesis. We cannot say that our model unfairly favors predicting one side over the other.
