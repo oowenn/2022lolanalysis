@@ -1,6 +1,4 @@
-# 2022 LOL Analysis
-
-## Introduction
+# Introduction
 
 This project conducts an in-depth analysis on the 2022 public match data for League of Legends which can be found [here](https://oracleselixir.com/tools/downloads). The dataset contains 148992 observations; for the sake of this project we will only use the aggregated team stats and we will be focusing on the following columns
 
@@ -22,25 +20,24 @@ This project conducts an in-depth analysis on the 2022 public match data for Lea
 
 In this project, we aim to answer the question: **Does `side` have a significant impact on the outcome of a game?**
 
-We will explore the importance these factors have on the outcome of a game with an emphasis on `side`. Additionally, we will explore the differences between matches in different leagues such as the LPL and LCK by comparing metrics that evaluate the action of a game. 
+We will explore the importance these factors have on the outcome of a game with an emphasis on `'side'`. Additionally, we will explore the differences between matches in different leagues such as the LPL and LCK by comparing metrics that evaluate the action of a game. 
 
-## Data Cleaning and Exploratory Data Analysis
+# Data Cleaning and Exploratory Data Analysis
 
-### Data Cleaning Steps
+## Data Cleaning Steps
 
 1. Filter the rows corresponding to team stats (`'position'` == 'team') because we are focusing on aggregated team data.
 2. Filter the rows corresponding to matches played in regional leagues ('LCK, 'LPL', ...) because we will be comparing stats between different leagues.
 3. Removed columns relating to individual players (`'player name'`, `'damage share'`, `'kills'`, ...) that aren't related to the team.
 4. Add columns corresponding to differences between team and opposing team (`'killsdif'`, `'towersdif`', ...) to use as features when evaluating the state of a game.
 5. Change appropriate columns to `bool` type (`'result'`, `'firstblood`', `'firstdragon`', `'firsttower`', ...).
-6. Replace `'side'` with `'red_side'` column (`True` if on played on Red side and `False` if played on Blue).
+6. Replace `'side'` with `'red_side'` column (`True` if played on Red side and `False` if played on Blue).
 7. Insert `'multikills'` column (sum of `'doublekills'`, `'triplekills'`, `'quadrakills'`, and `'pentakills'`) to use as a feature when evaluating the state of a game.
-8. Insert `'objectives'` column (sum of `'dragons'`, `'heralds'`, `'baronds'`) to use as a feature when evaluating the state of a game.
-9. Combine `'pick1'`, `'pick2`', ..., `'pick5'` into a single column `'picks'` corresponding to a list of the champions picked for less cluttered columns.
-10. Combine `'ban1'`, `'ban2`', ..., `'ban5'` into a single column `'bans'` corresponding to a list of the champions banned for less cluttered columns.
-11. Filtered rows that had complete data (`'datacompleteness'` == 'complete') because some observations with 'partial' or 'ignore' completeness were missing key data points that we could not reasonably infer/impute.
-12. Removed irrelevant columns (`'url'`, `'datacompleteness'`, `'year'`, `'split'`, `'void_grubs'`, ...) to reduce cluttered columns.
-13. Filled na values of `'dragons (type unknown)'` with 0.
+8. Insert `'objectives'` column (sum of `'dragons'`, `'heralds'`, `'barons'`) to use as a feature when evaluating the state of a game.
+9. Combined `'pick1'`, `'pick2`', ..., `'pick5'` into a single column, `'picks'`, corresponding to a list of the champions picked for less cluttered columns.
+10. Combined `'ban1'`, `'ban2`', ..., `'ban5'` into a single column, `'bans'`, corresponding to a list of the champions banned for less cluttered columns.
+11. Removed irrelevant columns (`'url'`, `'year'`, `'split'`, `'void_grubs'`, ...) to reduce cluttered columns.
+12. Filled na values of `'dragons (type unknown)'` with 0.
 
 The head of the final dataframe is shown below
 
@@ -52,9 +49,9 @@ The head of the final dataframe is shown below
 | LCK      | Liiv SANDBOX | oe:team:c75f1f337fc5867914749d438a4871d |         2070 | True     |        31 |          15 |            7 |             2 |             0 |             0 |            0 | True         | 0.4348 | 0.6377 | True          |         4 |             0 |                 4 |                     0 |           0 |           0 |        0 |        2 |           1 |          1 |                        0 |        0 |            0 | False         |         1 |             1 | True         |        1 |            1 | False        |        9 |            3 | True            | True                 |              1 |                  3 |            1 |                0 |               57616 | 1670.03 |                2938.81 |                    2685.86 |           104 | 3.0145 |            60 | 1.7391 |                   45 |           253 | 7.3333 |       67152 |        44660 |      1294.49 |       60108 | -0.00914149 |  1.31 |        nan |          1051 |            227 |                     nan |                       nan | 37.0435 |      16695 |    19149 |      333 |          15495 |        17872 |          318 |           1200 |         1277 |           15 |           4 |             5 |            2 |               2 |                 5 |                4 |      24657 |    30106 |      546 |          23612 |        29371 |          528 |           1045 |          735 |           18 |           4 |             5 |            2 |               2 |                 5 |                4 |          8 |           0 |            0 |           0 |           6 |           1 | True       |            2 |                     6 | ['Leona', 'Xin Zhao', 'Akali', 'Ezreal', 'Tryndamere'] | ['Renekton', 'Lee Sin', 'Twisted Fate', 'Viktor', 'LeBlanc'] |
 | LCK      | T1           | oe:team:ce499dea30cfce118f4fe85da0227e8 |         2233 | True     |        26 |          12 |            7 |             1 |             1 |             0 |            0 | True         | 0.3224 | 0.5105 | True          |         5 |             0 |                 4 |                     0 |           1 |           0 |        0 |        2 |           0 |          1 |                        0 |        1 |            0 | True          |         2 |             0 | True         |        1 |            0 | False        |        7 |            2 | True            | True                 |              2 |                  1 |            1 |                0 |               74327 | 1997.14 |                2789.72 |                    2453.12 |           122 | 3.2781 |            83 | 2.2302 |                   50 |           332 | 8.9207 |       66455 |        42304 |      1136.69 |       59950 |  0.0386823  |  1    |        nan |           970 |            236 |                     nan |                       nan | 32.4048 |      15662 |    18130 |      324 |          15510 |        19078 |          337 |            152 |         -948 |          -13 |           1 |             1 |            1 |               1 |                 1 |                1 |      24357 |    29835 |      518 |          23048 |        30005 |          533 |           1309 |         -170 |          -15 |           3 |             2 |            1 |               1 |                 1 |                3 |          5 |           1 |            2 |           1 |           5 |           1 | False      |            2 |                     8 | ['Karma', 'Ezreal', 'Jarvan IV', 'Gragas', 'Zoe']      | ['Lee Sin', 'Ryze', 'Viktor', 'LeBlanc', 'Graves']           |
 
-### Univariate Analysis
+## Univariate Analysis
 
-This figure plots the distribution of kpm across all games played in regional leagues. We can observe that the the distribution is roughly skewed right with a mean of about 0.37.
+This figure plots the distribution of kpm across all games played in regional leagues. We can observe that the the distribution is roughly skewed right with a mean of roughly 0.37.
 <iframe
   src="assets/kpm_dist.html"
   width="800"
@@ -62,7 +59,7 @@ This figure plots the distribution of kpm across all games played in regional le
   frameborder="0"
 ></iframe>
 
-This figure plots the distribution of multikills across all games played in regional leauges. We can observe that the number of multikills seen in a game trends downward with a mean around 2.
+This figure plots the distribution of multikills across all games played in regional leauges. We can observe that the number of multikills seen in a game trends downward with a mean of roughly 0.5.
 <iframe
   src="assets/multikills_dist.html"
   width="800"
@@ -78,7 +75,7 @@ This figure plots the distributions of the various kinds of multikills across al
   frameborder="0"
 ></iframe>
 
-### Bivariate Analysis
+## Bivariate Analysis
 
 This figure depicts the distributions of the `'kpm'` of different leagues. We can see that the VCS league seems to have the highest median `'kpm'`whereas the lowest appears to be the LCK.
 <iframe
@@ -89,6 +86,9 @@ This figure depicts the distributions of the `'kpm'` of different leagues. We ca
 ></iframe>
 
 This figure depicts the distributions of the `'multikills'` of different leagues. We can see that the CBLOL and VCS leagues have the highest median observed `'multikills'` of 2 whereas the rest of the leagues of a median observed `'multikills'` of 1.
+
+- Note: All LPL games were missing multikill data, which is why its box plot shows 0.
+
 <iframe
   src="assets/multikills_by_league.html"
   width="800"
@@ -104,7 +104,7 @@ This figure depicts the distributions of the `'objectives'` captured by differen
   frameborder="0"
 ></iframe>
 
-### Interesting Aggregates
+## Interesting Aggregates
 
 We can explore the pick rates of each champion after aggregating by `'league'` to observe differences in meta across the various leagues. The table below tabulates the pick rates of each champion across different leagues. We can see that Nautilus was the most picked champion in the CBLOL, LLA, PCS, and VCS with pickrates between 3.9% to 5%, however, his pickrates in the LCK, LCS, and LEC were only between 2.1% to 2.86%. 
 
@@ -257,11 +257,11 @@ We can explore the pick rates of each champion after aggregating by `'league'` t
 | Zoe          | 0.576132  | 0.385439  | 0.328947  | 0.547264  | 0.534759  | 0.701107  | 0.0330033 |
 | Zyra         | 0         | 0         | 0.0328947 | 0.0497512 | 0         | 0         | 0         |
 
-### Assessment of Missingness
+# Assessment of Missingness
 
 Assessing each column before cleaning, we believe one column that could be NMAR is the `'url'` column. The values in the `'url'` column are all lpl.qq.com or matchhistory.na.leagueoflegends.com urls, so it could be that matches recorded on other urls were not kept in the dataset. 
 
-#### Missingness Hypothesis Test 1
+## Missingness Hypothesis Test 1
 To assess the missingness of `'doublekills'` on `'league'` we run the following hypothesis test:
 
 - Null: The distribution of `'league'` when `'doublekills'` is missing is the same as when `'doublekills'` is not missing.
@@ -279,7 +279,7 @@ We reject the null hypothesis with a p-value of 0.0. Thus, we can conclude that 
 
 At first this result seems very bizzare, but it can be explained by the fact that all of the observations where `'doublekills'` (among similar columns) were missing came from LPL games. 
 
-#### Missingness Hypothesis Test 2
+## Missingness Hypothesis Test 2
 To assess the missingness of `'doublekills'` on `'dpm'` we run the following hypothesis test:
 
 - Null: The distribution of `'dpm'` when `'doublekills'` is missing as the same as when `'doublekills'` is not missing.
@@ -295,17 +295,17 @@ We fail to reject the null hypothesis with a p-value of 0.474. Thus, we cannot c
   frameborder="0"
 ></iframe>
 
-### Hypothesis Testing
+# Hypothesis Testing
 
-#### Hypothesis Test 1
+## Hypothesis Test 1
 
-##### Set Up
+### Set Up
 - Null: The mean kpm (kills per minute) between the LPL league and LCK league is the same.
 - Alternative: The mean kpm (kills per minute) of the LPL league is higher than the LCK league.
 - Test Statistic: Difference of Means.
 - Significant Level: 5%.
 
-##### Results
+### Results
 - P-value: 0.0
 
 <iframe
@@ -315,18 +315,18 @@ We fail to reject the null hypothesis with a p-value of 0.474. Thus, we cannot c
   frameborder="0"
 ></iframe>
 
-##### Conclusions
+### Conclusions
 
 With a p-value of 0, we have evidence to reject the null hypothesis. The mean `'kpm'` of the LPL is likely to be higher than the mean `'kpm'` of the LCK. We can use this to imply that LPL games have more action than LCK games because there are more kills per minute. 
 
-#### Hypothesis Test 2
+## Hypothesis Test 2
 
-##### Set Up
+### Set Up
 - Null: The mean result (winrate) between Red side and Blue side is the same.
 - Alternative: The mean result (winrate) between Red side and Blue side is not the same.
 - Test Statistic: Difference of Means.
 
-##### Results
+### Results
 - P-value: 0.0
 
 <iframe
@@ -336,21 +336,21 @@ With a p-value of 0, we have evidence to reject the null hypothesis. The mean `'
   frameborder="0"
 ></iframe>
 
-##### Conclusions
+### Conclusions
 
-With a p-value of 0, we have evidence to reject the null hypothesis. The mean winrate of Red side is likely not to be the same as the mean winrate of Blue side. 
+With a p-value of 0, we have evidence to reject the null hypothesis. The mean winrate of Red side is likely not to be the same as the mean winrate of Blue side. This indicates that `'side'` has a significant impact on the outcome of a game.
 
-#### Prediction Problem
+# Framing a Prediction Problem
 
-##### Question
+## Question
 
 Can we predict if a team will win/lose the game?
 
 - Binary classification problem
 - We want to predict the `'result'` column
-- We will use accuracy as the metric because it is simple and we are not concerned with false positives/negatives.
+- We will use accuracy as the metric for its simplicity and we are not concerned with false positive and false negative tradeoffs.
 
-##### Baseline Model
+# Baseline Model
 
 Using information available 15 minutes into the game, we utilize the following features to create a basic `DecisionTreeClassifier()`:
 - `'red_side'`: nominal feature, found by encoding `'side'` to `'True'` if `'side' == 'Red'` and `'False'` if `'side' == Blue'`.
@@ -363,7 +363,7 @@ Using information available 15 minutes into the game, we utilize the following f
 
 In total, we used 1 nominal and 6 quantitative features. This model achieved train accuracy of `0.747` and test accuracy of `0.755`. We do not believe that this model is good yet because its accuracy is fairly low and can be improved.
 
-##### Final Model
+# Final Model
 
 Expanding to using all of the available information throughout the game, we utilize the following features to create a `RandomForestClassifier()`:
 - `'red_side'`: we chose to keep this feature because it showed to be a strong predictor in an earlier hypothesis test.
@@ -371,7 +371,7 @@ Expanding to using all of the available information throughout the game, we util
 - `'objectives captured'`: we chose to include this feature because having more or less objectives captured should be a decent indicator of the result of a game.
 - `'earned gpm'`: we chose to include this feature because a team earning more or less than average gold per minute should be a good indicator of the result of a game.
 
-For this final model, we chose to use a `RandomForestClassifier()`, which is a model that trains an ensemble of `DecisionTreeClassifier()'s` and bases its prediction on a vote cast by each `DecisionTreeClassifier()`. 
+For this final model, we chose to use a `RandomForestClassifier()`, which is a model that trains an ensemble of `DecisionTreeClassifier()'s` and bases its prediction on a vote cast by each `DecisionTreeClassifier()`. `RandomForestCliassifier()`'s are more complex than `DeccisionTreeClassifier()`s, but they can be more robust to unseen data.
 
 To fine tune the hyperparameters, we used a `GridSearchCV()` to find the combination of `max_depth`, `criterion`, and `min_samples_split` with the best validation score. We would test a range for each hyperparameter and adjust the range depending on the result until the hyperparameters converged. 
 
@@ -379,18 +379,18 @@ Our resulting best hyperparameters were `criterion='gini'`, `max_depth=3`, and `
 
 Our final model achieved a train accuracy of `0.978` test accuracy of `0.96`. It performs considerably better than our baseline model because it has achieved much higher accuracy without overfitting to the training data. 
 
-#### Fairness Analysis
+# Fairness Analysis
 
 We will evaluate our final model's F1-score between two groups:
 - Group 1: Red side teams
 - Group 2: Blue side teams
 
-##### Setup
+## Setup
 We will conduct the following hypothesis test:
 - Null: The model is fair. Its F1-score is the same for teams playing Red side and Blue side.
 - Alternative: The model is unfair. Its F1-score is higher for teams playing on Red side over Blue side.
 
-##### Results
+## Results
 - P-value: 0.558
 
 <iframe
@@ -400,5 +400,16 @@ We will conduct the following hypothesis test:
   frameborder="0"
 ></iframe>
 
-##### Conclusions
+## Conclusions
 With a p-value of 0.558, we fail to reject the null hypothesis. We cannot say that our model unfairly favors predicting one side over the other.
+
+# Overall
+
+Throughout this project, we were able to achieve a deep understanding of the dataset and come across various findings:
+- Games across different regional leagues are quite different, with some leagues demeonstrating more action in their games over others.
+- Regional leagues develop their own metas with champion pick rates varying across each region
+- The missingness of the data largely stems from incomplete data reported by LPL games.
+- Side indeed has a significant impact on determining the outcome of the game.
+- Using features based on information provided at early stages of a game can create a decent model to predict `'result'`.
+- Using features based on information provided after the entire game can create a strong model to predict `'result'`.
+- Despite our final model incorporating `'side'` as a feature, it does not evaluate predictions unfairly between sides.
